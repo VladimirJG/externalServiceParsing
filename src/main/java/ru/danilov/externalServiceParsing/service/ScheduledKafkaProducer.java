@@ -16,10 +16,10 @@ public class ScheduledKafkaProducer {
         this.kafkaProducerService = kafkaProducerService;
     }
 
-    @Scheduled(fixedRate = 1800000) // Отправка сообщения каждуые 3 минуты
+    @Scheduled(fixedRate = 120000) // Отправка сообщения каждые 2 минуты
     public void sendScheduledMessage() {
         List<LinkTagDto> extracted = extracted();
-        kafkaProducerService.sendMessage("out-quality", extracted);
+        extracted.forEach(linkTagDto -> kafkaProducerService.sendMessage("out-quality", linkTagDto));
     }
 
     private List<LinkTagDto> extracted() {
